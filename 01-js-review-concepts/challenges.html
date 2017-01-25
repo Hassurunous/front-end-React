@@ -1,0 +1,105 @@
+<script>
+    // Creating a list of reindeer names and their titles for use in the following functions.
+    var names = ["Dasher", "Dancer", "Prancer", "Vixen", "Comet", "Cupid", "Donner", "Blitzen", "Rudolph", "Olive"];
+    var titles = ["the Swift", "the Extroverted", "the Vain", "the Trickster", "the Imperturbable", "the Affectionate", "the Loud", "the Expeditious", "the Crimson Leader", "the Humble"];
+
+    // This array will hold the reindeer names and titles as objects.
+    var nameTitle = [];
+
+    // This loop fills in the nameTitle array with the names and titles above, by using the reindeerMaker function to first turn the names and titles into objects.
+    for (i = 0; i < names.length; i++) {
+        reindeerMaker(names[i], titles[i]);
+    }
+    console.log(nameTitle);
+
+    // This function takes a name and title as input, and returns a reindeer object
+    function reindeerMaker(nameIn, titleIn) {
+        var reindeer = {name: nameIn, title: titleIn};
+        nameTitle.push(reindeer);
+    }
+
+    // This function accepts a letter as input and returns any reindeer who's name starts with that letter.
+    function findReindeerByFirstLetter(letter) {
+        var foundReindeer = nameTitle.filter(function(el) {
+            return el.name.charAt(0) === letter;
+        });
+        console.log(foundReindeer);
+    }
+
+    // This function accepts a string as input and returns any reindeer who's titles match that string.
+    function findReindeerByTitle(title) {
+        var foundReindeer = nameTitle.filter(function(el) {
+            return el.title === title;
+        });
+        console.log(foundReindeer);
+    }
+
+    // This function returns each name and title in a string using array.map()
+    function reindeerSentences() {
+        var reindeerSentences = nameTitle.map(function(el) {
+            return el.name + " " + el.title + " is a great Reindeer!"
+        });
+        console.log(reindeerSentences);
+    }
+
+    // Running each function on page load to test each one against a good input.
+    findReindeerByFirstLetter("D");
+    findReindeerByTitle("the Swift");
+    reindeerSentences();
+
+    //Running each function on page load to test each on against a bad input.
+    findReindeerByFirstLetter("Xer");
+    findReindeerByTitle("the Bold");
+
+    // Challenge 2: Random Numbers
+    // Create array to hold random numbers
+    var randNums = []
+
+    // For loop to fill in 100 random numbers into the array
+    for (var i = 0; i < 100; i++) {
+        randNums.push(Math.floor(Math.random() * 101))
+    }
+
+    // Find all numbers over half of the random number array max value.
+    function overHalf() {
+        var overHalf = randNums.filter(function(el) {
+            return el > 101/2;
+        });
+        console.log(overHalf);
+    }
+
+    // Find all numbers under half of the random number array max value.
+    function underHalf() {
+        var underHalf = randNums.filter(function(el) {
+            return el < 101/2;
+        });
+        console.log(underHalf);
+    }
+
+    // Return the total value of all array elements
+    function numTotal() {
+        var totalValue = 0;
+        var total = randNums.filter(function(el) {
+            return totalValue += el;
+        });
+        console.log(totalValue);
+    }
+
+    // Return the average value of all array elements
+    function numAvg() {
+        var totalValue = 0;
+        var total = randNums.filter(function(el) {
+            return totalValue += el;
+        });
+        console.log(totalValue / randNums.length);
+    }
+
+    console.log(randNums);
+
+    // Run challenge 2 functions to test.
+    overHalf();
+    underHalf();
+    numTotal();
+    numAvg();
+
+</script>
