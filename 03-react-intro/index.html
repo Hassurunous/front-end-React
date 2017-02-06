@@ -6,13 +6,13 @@
     <script src="https://unpkg.com/react@15.3.2/dist/react.js"></script>
     <script src="https://unpkg.com/react-dom@15.3.2/dist/react-dom.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.23/browser.min.js"></script>
-    
+
     <style>
         body {
             font-family: Helvetica;
             font-size: 18px;
         }
-        
+
         h1 {
             text-align: center;
         }
@@ -29,7 +29,7 @@
     <script type="text/babel">
 
         // --------------------------------
-        // Simple Component 
+        // Simple Component
         // --------------------------------
         function Title(props) {
             return (
@@ -40,7 +40,7 @@
 
 
         // --------------------------------
-        // Stateful Component 
+        // Stateful Component
         // --------------------------------
         class Clock extends React.Component {
             constructor(props) {
@@ -73,16 +73,78 @@
                 );
             }
         }
-        // -------------------------------- 
+        // --------------------------------
 
-        // Renders reacts virtual DOM. 
+        // Renders reacts virtual DOM.
 
         // --------------------------------
+
+        // --------------------------------
+        // Simple Component
+        // --------------------------------
+        function ColorAndSize(props) {
+
+            const styles = {
+                color:props.color,
+                fontSize: props.size
+            };
+
+            return (
+                <h1 style={styles}>Colors! Sizes!</h1>
+            );
+        }
+
+        // --------------------------------
+        // Stateful Component
+        // --------------------------------
+        class Countdown extends React.Component {
+            constructor(props) {
+                super(props);
+                this.state = {
+                    timeLeft: props.timeLeft,
+                    message: "You can do it!"
+                };
+                this.timerId = setInterval(() => this.tick(), props.interval);
+            }
+
+            componentWillUnmount() {
+                clearInterval(this.timerId);
+            }
+
+            tick() {
+                if(this.state.timeLeft >= 1) {
+                    this.setState({timeLeft: this.state.timeLeft - 1});
+                    console.log(this.state.timeLeft);
+                }
+                if(this.state.timeLeft == 0) {
+                    this.setState({message: "Time's Up!"});
+                    console.log(this.state.timeLeft);
+                    componentWillUnmount();
+                }
+            }
+
+            render() {
+
+                const displayTime = this.state.timeLeft;
+                const message = this.state.message;
+
+                return (
+                    <div>
+                        <Title title={displayTime} />
+                        <Title title={message} />
+                    </div>
+                );
+            }
+        }
+
         ReactDOM.render(
             <div>
                 <Title title="Simple React Starter" />
                 <Clock />
-            </div>, 
+                <ColorAndSize color="red"  size="88px" /*styles={color:"red", fontSize:"88px"}*/ />
+                <Countdown timeLeft="10" interval="1000"/>
+                <Countdown timeLeft="100" interval="100"/>
+            </div>,
             document.getElementById('app')
         );
     </script>
