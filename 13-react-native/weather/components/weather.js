@@ -1,6 +1,7 @@
 // Import default components
 import React, { Component } from 'react';
 import { Text, View, StyleSheet } from 'react-native';
+import HeadNSub from './text-example';
 
 // Define a stateful component
 export default class Weather extends Component {
@@ -86,25 +87,31 @@ export default class Weather extends Component {
     }
 
     // Check the weather. Be sure to check the console, and look at JSON output.
-    var weather = this.state.weather;
-    if (weather != null) {
-      const temp        = weather.currently.apparentTemperature;
-      const cloudCover  = weather.currently.cloudCover;
-      const summary     = weather.currently.summary;
-      const windSpeed   = weather.currently.windSpeed;
+    var weather = {};
+    if (this.state.weather != null) {
+      const temp        = this.state.weather.currently.apparentTemperature;
+      const cloudCover  = this.state.weather.currently.cloudCover;
+      const summary     = this.state.weather.currently.summary;
+      const windSpeed   = this.state.weather.currently.windSpeed;
+      const dailySummary = this.state.weather.daily.summary;
 
-      const dailySummary = weather.daily.summary;
-
-      weather = `Temp : ${temp}`;
+      weather.temp = `${temp}`;
+      weather.cloudCover = `${cloudCover}`;
+      weather.summary = `${summary}`;
+      weather.windSpeed = `${windSpeed}`;
+      weather.dailySummary = `${dailySummary}`;
     }
 
     // Display stuff.
     return (
       <View>
-        <Text>Hello Milo!</Text>
+        <Text>Hello Michael!</Text>
         <Text>Position: {position}</Text>
-        <Text>{weather}</Text>
-        <Text>{weather}</Text>
+        <HeadNSub title={weather.temp} subheading="Fahrenheit"></HeadNSub>
+        <Text>{weather.cloudCover}</Text>
+        <Text>{weather.summary}</Text>
+        <Text>{weather.windSpeed}</Text>
+        <Text>{weather.dailySummary}</Text>
       </View>
     );
   }
